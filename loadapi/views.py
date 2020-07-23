@@ -60,3 +60,5 @@ def importmatch(request):
         new_entry.match_awayteam_score=i['match_awayteam_score']
         new_entry.save()
     return HttpResponse(f"Zaimportowano mecze do bazy")
+
+

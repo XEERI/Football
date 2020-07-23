@@ -1,0 +1,68 @@
+{% extends 'footballstats/base.html'%}
+{% block content %}
+
+<h2>Wyszukiwanie graczy</h2>
+
+
+			<form class="" action="{% url 'footballstats:player_data' %}" method="POST">
+				{% csrf_token %}
+
+
+					<label for="player_id">Wpisz ID gracza:</label>
+					<input type="search" id="player_id" name="player_id"><br>
+				lub <br>
+					<label for="player_name">Wpisz imie gracza:</label>
+					<input type="search" id="player_name" name="player_name"><br>
+					<input type="submit" value="Pokaz statystyki gracza">
+
+			</form>
+
+			<div>
+				<div>
+				</div>
+				<div>
+					<table>
+
+						<tbody>
+							{% if player_data %}
+							{% for player in player_data %}
+
+
+										<tr style="border:0 solid white;" class="table-row" data-href="/footballstats/players/{{player_info.player_id}}">
+											<li>Imie i Nazwisko: {{player.player_name }}</li>
+             <li>Id gracza: {{player.player_key}}</li>
+             <li>Kraj: {{player.player_country }}</li>
+             <li>Numer zawodnika: {{player.player_number }} <br></li>
+             <li>Pozycja: {{player.player_type }} <br></li>
+             <li>Lat: {{player.player_age }}</li>
+             <li>Rozegrane mecze: {{player.player_match_played}}</li>
+             <li>Ilość goli: {{ player.player_goals}}</li>
+             <li>Zółte kartki: {{player.player_yellow_cards}}</li>
+             <li>Czerwone kartki: {{player.player_red.cards}}</li>
+             <li>Nazwa teamu: {{player.team_name}}</li>
+             <li>Klucz team: {{player.team_key }} </li>
+
+
+							{% endfor %}
+
+							{% else %}
+							 <p>{{player_error.message }} Please select another date ranage!</p>
+
+							{% endif %}
+
+
+						</tbody>
+					</table>
+
+
+
+				</div>
+				<div class="col-md-3">
+				</div>
+
+
+			</div>
+
+
+		</div>
+{% endblock %}
