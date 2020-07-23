@@ -1,0 +1,115 @@
+{% extends 'footballstats/base.html'%}
+{% block content %}
+
+<h2>Wyszukiwanie meczy</h2>
+
+
+			<form class="" action="{% url 'footballstats:match_data' %}" method="POST">
+				{% csrf_token %}
+
+			<div>
+				<div>
+				</div>
+				<div>
+				<label>League</label>
+				<select name="league_id">
+					<option value="148">English Premier League</option>
+					<option value="468">Spanish La Liga</option>
+				</select>
+				</div>
+				<div>
+					<label for="inputFromDate">From Date</label>
+					<input type="date" name="from_date" id="inputFromDate" placeholder="10/2/2019"></input>
+				</div>
+				<div>
+					<label for="inputFromDate">To Date </label>
+					<input type="date" name="to_date" id="inputToDate" placeholder="10/2/2019"></input>
+				</div>
+				<div>
+
+					<input type="submit" value="Pokaz mecze">
+				</div>
+			</div>
+			<div>
+			</div>
+			</form>
+
+			<div>
+				<div>
+				</div>
+				<div>
+					<table>
+
+						<tbody>
+							{% if match_data %}
+							{% for match in match_data %}
+
+
+										<tr style="border:0 solid white;" class="table-row" data-href="/footballstats/matches/{{match.match_id}}">
+						          <td>
+						            <div>
+
+						              <span>{{match.home_team | safe }}</span>
+						            </div>
+						            <div style="margin-top:15">
+
+						              <span>{{match.away_team | safe }}</span>
+						            </div>
+						          </td>
+						          <td>
+						          <div>
+						            {{match.home_team_score}}
+						          </div>
+						          <div>
+						            {{match.away_team_score}}
+						          </div>
+						          </td>
+
+
+
+						          <td>
+
+
+						            <div class="vl">
+													{% if match.match_status %}
+													<!--  have to write code when game is live-->
+													<div>
+													{{ match.match_date}} <br>{{match.match_status}} {{match.match_time}}
+													</div>
+													{% else %}
+													<div>
+					 							 	{{match.match_date}}
+					 							 </div>
+					 							 <div>
+					 							 	{{match.match_time}}
+					 							 </div>
+													{% endif %}
+
+						          </td>
+						        </tr>
+
+
+
+							{% endfor %}
+
+							{% else %}
+							 <p>{{match_error.message }} Wybierz inny zakres dat!</p>
+
+							{% endif %}
+
+
+						</tbody>
+					</table>
+
+
+
+				</div>
+				<div class="col-md-3">
+				</div>
+
+
+			</div>
+
+
+		</div>
+{% endblock %}

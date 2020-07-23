@@ -3,6 +3,10 @@ from django.shortcuts import render
 import requests
 import datetime
 # Create your views here.
+
+
+
+# Wyszukiwanie graczy
 def get_player_data(request):
     api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
     if request.method == "POST":
@@ -19,10 +23,10 @@ def get_player_data(request):
                    "APIkey": api_key}
 
 
-    payload = ""
+    load = ""
 
     response = requests.request(
-        "GET", url, data=payload, params=querystring)
+        "GET", url, data=load, params=querystring)
     response = response.json()
     length = len(response)
 
@@ -60,10 +64,10 @@ def player_details(request, player_key):
     querystring = {"action": "get_players", "player_key": player_key,
                    "APIkey": api_key}
 
-    payload = ""
+    load = ""
 
     response = requests.request(
-        "GET", url, data=payload, params=querystring)
+        "GET", url, data=load, params=querystring)
     response = response.json()
 
     length = len(response)
@@ -83,3 +87,115 @@ def player_details(request, player_key):
         "team_key": response[0]['team_key'],
     }
     return render(request, 'footballstats/players.html', context={'player_info': player_info})
+
+# Wyszukiwanie meczy
+def get_match_data(request):
+    api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
+    if request.method == "POST":
+        league_id = request.POST.get('league_id')
+    else:
+        league_id = 148
+    if request.method == "POST":
+        from_date = request.POST.get('from_date')
+    else:
+        from_date = datetime.datetime.now().date()
+    if request.method == "POST":
+        to_date = request.POST.get('to_date')
+    else:
+        to_date = datetime.datetime.now().date()
+
+
+    url = "https://apiv2.apifootball.com/"
+
+    querystring = {"action": "get_events", 'league_id': league_id,
+                   "from": from_date, "to": to_date, "APIkey": api_key}
+
+    load = ""
+
+    response = requests.request(
+        "GET", url, data=load, params=querystring)
+    response = response.json()
+    length = len(response)
+
+    match_data = []
+    match_error = {}
+
+    try:
+        for i in range(length):
+            match = {
+                'match_id': response[i]['match_id'],
+                "match_status": response[i]['match_status'],
+                'match_date': response[i]['match_date'],
+                'match_time':  response[i]['match_time'],
+                'home_team': response[i]['match_hometeam_name'],
+                'home_team_score': response[i]['match_hometeam_score'],
+                'away_team': response[i]['match_awayteam_name'],
+                'away_team_score': response[i]['match_awayteam_score']
+            }
+            match_data.append(match)
+    except:
+        match_error = {
+            'message': response['message']
+        }
+
+    querystring = {"action": "get_leagues", "APIkey": api_key}
+
+    load = ""
+
+    response = requests.request(
+        "GET", url, data=load,params=querystring)
+    response = response.json()
+    length = len(response)
+
+    competitions = []
+
+    for i in range(length):
+        league_details = {
+            'league_id': response[i]['league_id'],
+            'league_name': response[i]['league_name']
+        }
+        competitions.append(league_details)
+
+    return render(request, 'footballstats/mecz.html', context={'match_data': match_data, 'match_error': match_error, 'competitions': competitions})
+
+
+
+def match_details(request, match_id):
+        api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
+        url = "http://apiv2.apifootball.com/"
+
+        querystring = {"action": "get_events", "match_id": match_id,
+                       "APIkey": api_key}
+
+        payload = ""
+
+        response = requests.request(
+            "GET", url, data=payload, params=querystring)
+        response = response.json()
+
+        length = len(response)
+
+        match_info = {
+            "match_id": response[0]['match_id'],
+            "country_id": response[0]['country_id'],
+            "country_name": response[0]['country_name'],
+            "league_id": response[0]['league_id'],
+            "league_name": response[0]['league_name'],
+            "match_date": response[0]['match_date'],
+            "match_status": response[0]['match_status'],
+            "match_time": (response[0]['match_date'], response[0]['match_time']),
+            "match_hometeam_name": response[0]['match_hometeam_name'],
+            "match_hometeam_score": response[0]['match_hometeam_score'],
+            "match_awayteam_name": response[0]['match_awayteam_name'],
+            "match_awayteam_score": response[0]['match_awayteam_score'],
+            "match_hometeam_halftime_score": response[0]['match_hometeam_halftime_score'],
+            "match_awayteam_halftime_score": response[0]['match_awayteam_halftime_score'],
+            "match_hometeam_extra_score": response[0]['match_hometeam_extra_score'],
+            "match_awayteam_extra_score": response[0]['match_awayteam_extra_score'],
+            "match_hometeam_penalty_score": response[0]['match_hometeam_penalty_score'],
+            "match_awayteam_penalty_score": response[0]['match_awayteam_penalty_score'],
+            "match_hometeam_system": response[0]['match_hometeam_system'],
+            "match_awayteam_system": response[0]['match_awayteam_system'],
+            "match_live": response[0]['match_live'],
+        }
+        return render(request, 'footballstats/mecz_statystyki.html', context={'match_info': match_info})

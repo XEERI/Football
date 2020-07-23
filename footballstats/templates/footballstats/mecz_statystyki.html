@@ -1,0 +1,21 @@
+{% extends 'footballstats/base.html'%}
+{% block content %}
+<div>
+  {{match_info.match_hometeam_name | safe }} vs {{match_info.match_awayteam_name| safe }} <br>
+  {{match_info.league_name}}<br>
+  {{match_info.match_date}}<br>
+  {{match_info.match_status}}<br>
+  {{match_info.match_hometeam_name | safe }} {{match_info.match_hometeam_score}}<br>
+
+
+  {{match_info.match_awayteam_name|safe }} {{match_info.match_awayteam_score}}<br>
+  {{match_info.match_id}}
+</div>
+
+{% endblock %}
+
+
+
+
+
+

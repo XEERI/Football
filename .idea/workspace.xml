@@ -3,13 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1cf6b042-d928-493c-95a8-abc4058d1616" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/football/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/football/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/player.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/players.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/players.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/footballstats/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/footballstats/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loadapi/templates/loadapi/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/loadapi/templates/loadapi/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loadapi/templates/loadapi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/loadapi/templates/loadapi/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loadapi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/loadapi/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
