@@ -2,6 +2,7 @@
 from django.shortcuts import render
 import requests
 import datetime
+
 # Create your views here.
 
 
@@ -157,6 +158,7 @@ def get_match_data(request):
         competitions.append(league_details)
 
     return render(request, 'footballstats/mecz.html', context={'match_data': match_data, 'match_error': match_error, 'competitions': competitions})
+
 
 
 
