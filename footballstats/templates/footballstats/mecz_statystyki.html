@@ -1,18 +1,32 @@
 {% extends 'footballstats/base.html'%}
+{ % loadstatic %}
 {% block content %}
-<div>
-  {{match_info.match_hometeam_name | safe }} vs {{match_info.match_awayteam_name| safe }} <br>
-  {{match_info.league_name}}<br>
-  {{match_info.match_date}}<br>
-  {{match_info.match_status}}<br>
-  {{match_info.match_hometeam_name | safe }} {{match_info.match_hometeam_score}}<br>
 
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<div style="margin-top:20px" class="clearfix">
+				<div style="float:left">
+                 Liga: {{match_info.league_name}}<br>
+                 Data meczu: {{match_info.match_date}} <br>
+                 Status meczu: {{match_info.match_status}}
+				</div>
+            </div>
+          <br>
+                                  <td>
+						            <div>
+						              <img src=" {{match_info.team_home_badge}} " alt="logo ligi" style="width:12;height:12" data-atf="1">
+						              <span style="margin-left:15">{{match_info.match_hometeam_name | safe }}  {{match_info.match_hometeam_score}} </span>
+										<span style="margin-left:15">- {{match_info.match_awayteam_score}} {{match_info.match_awayteam_name | safe }}  </span>
+										<img src="{{match_info.team_away_badge}}" alt="logo ligi" style="width:24;height:24"data-atf="1">
+						            </div>
+						          </td>
+			<p><a href="/..">Powrót do do strony głownej</a></p>
+        </div>
+          {% endblock %}
 
-  {{match_info.match_awayteam_name|safe }} {{match_info.match_awayteam_score}}<br>
-  {{match_info.match_id}}
-</div>
-
-{% endblock %}
 
 
 

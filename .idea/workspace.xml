@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1cf6b042-d928-493c-95a8-abc4058d1616" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/footballstats/static/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/footballstats/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/mecz.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/mecz.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/mecz_statystyki.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/mecz_statystyki.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/player.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footballstats/templates/footballstats/players.html" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/templates/footballstats/players.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/footballstats/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/footballstats/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/footballstats/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadapi/templates/loadapi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/loadapi/templates/loadapi/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadapi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/loadapi/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,9 +48,11 @@
       <recent name="C:\Users\zszym\Desktop\football\loadapi\templates\loadapi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\zszym\Desktop\football\footballstats\static" />
+      <recent name="C:\Users\zszym\Desktop\football\footballstats\static\js" />
       <recent name="C:\Users\zszym\Desktop\football\footballstats\templates\footballstats" />
+      <recent name="C:\Users\zszym\Desktop\football\footballstats" />
       <recent name="C:\Users\zszym\Desktop\football\loadapi\templates\loadapi" />
-      <recent name="C:\Users\zszym\Desktop\football\loadapi\templates" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -62,9 +73,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="719" y="327" key="#com.intellij.fileTypes.FileTypeChooser/-1920.4.1920.1050/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1595510542533" />
-    <state x="-1180" y="283" key="FileChooserDialogImpl" timestamp="1595517920750">
-      <screen x="-1920" y="4" width="1920" height="1050" />
+    <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1595579738022">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="-1180" y="283" key="FileChooserDialogImpl/-1920.4.1920.1050/0.0.1920.1050/1920.0.1920.1050@-1920.4.1920.1050" timestamp="1595517920750" />
+    <state x="740" y="279" key="FileChooserDialogImpl/-1920.4.1920.1050/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1595579738022" />
   </component>
 </project>

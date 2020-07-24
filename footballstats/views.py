@@ -58,11 +58,11 @@ def get_player_data(request):
 
     return render(request, 'footballstats/player.html', context={'player_data': player_data, 'player_error': player_error})
 
-def player_details(request, player_key):
+def player_details(request, player_id):
     api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
     url = "http://apiv2.apifootball.com/"
 
-    querystring = {"action": "get_players", "player_key": player_key,
+    querystring = {"action": "get_players", "player_id": player_id,
                    "APIkey": api_key}
 
     load = ""
@@ -131,7 +131,9 @@ def get_match_data(request):
                 'home_team': response[i]['match_hometeam_name'],
                 'home_team_score': response[i]['match_hometeam_score'],
                 'away_team': response[i]['match_awayteam_name'],
-                'away_team_score': response[i]['match_awayteam_score']
+                'away_team_score': response[i]['match_awayteam_score'],
+                'team_home_badge': response[i]['team_home_badge'],
+                'team_away_badge': response[i]['team_away_badge']
             }
             match_data.append(match)
     except:
@@ -199,5 +201,7 @@ def match_details(request, match_id):
             "match_hometeam_system": response[0]['match_hometeam_system'],
             "match_awayteam_system": response[0]['match_awayteam_system'],
             "match_live": response[0]['match_live'],
+            'team_home_badge': response[0]['team_home_badge'],
+            'team_away_badge': response[0]['team_away_badge']
         }
         return render(request, 'footballstats/mecz_statystyki.html', context={'match_info': match_info})

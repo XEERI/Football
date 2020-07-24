@@ -1,88 +1,73 @@
 {% extends 'footballstats/base.html'%}
+{ % loadstatic %}
 {% block content %}
 
-<h2>Wyszukiwanie meczy</h2>
 
-
+		<div class="fulid-container">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-light bg-light">
+						<h3 class="navbar-brand">Wyszukiwanie meczy</h3>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<div style="margin-top:20" class="container">
 			<form class="" action="{% url 'footballstats:match_data' %}" method="POST">
 				{% csrf_token %}
 
-			<div>
-				<div>
-				</div>
-				<div>
+				<div class="form-group row">
+
+
 				<label>League</label>
-				<select name="league_id">
+				<select name="league_id" class="form-control">
 					<option value="148">English Premier League</option>
 					<option value="468">Spanish La Liga</option>
 				</select>
 				</div>
-				<div>
+				<div class="form-group">
 					<label for="inputFromDate">From Date</label>
-					<input type="date" name="from_date" id="inputFromDate" placeholder="10/2/2019"></input>
+					<input type="date" name="from_date" class="form-control" id="inputFromDate" placeholder="10/2/2019">
 				</div>
-				<div>
+					<div class="form-group">
 					<label for="inputFromDate">To Date </label>
-					<input type="date" name="to_date" id="inputToDate" placeholder="10/2/2019"></input>
+					<input type="date" name="to_date" class="form-control" id="inputToDate" placeholder="10/2/2019">
 				</div>
-				<div>
 
-					<input type="submit" value="Pokaz mecze">
-				</div>
-			</div>
-			<div>
-			</div>
+					<div class="form-group" style="margin-top:32px">
+						<input type="submit" value="Pokaż mecze" class="btn btn-primary form-control">
+					</div>
+
 			</form>
 
-			<div>
-				<div>
+			<div class="row">
+				<div class="col-md-3">
 				</div>
-				<div>
-					<table>
-
+				<div class="col-md-6">
+					<table class="table table-hover">
 						<tbody>
 							{% if match_data %}
 							{% for match in match_data %}
-
-
-										<tr style="border:0 solid white;" class="table-row" data-href="/footballstats/matches/{{match.match_id}}">
+							<tr style="border:0 solid white;" class="table-row" data-href="/footballstats/matches/{{match.match_id}}">
 						          <td>
 						            <div>
-
-						              <span>{{match.home_team | safe }}</span>
-						            </div>
-						            <div style="margin-top:15">
-
-						              <span>{{match.away_team | safe }}</span>
+						              <img src=" {{match.team_home_badge}} " alt="logo ligi" style="width:12;height:12" data-atf="1">
+						              <span style="margin-left:15">{{match.home_team | safe }}  {{match.home_team_score}} </span>
+										<span style="margin-left:15">- {{match.away_team_score}} {{match.away_team | safe }}  </span>
+										<img src="{{match.team_away_badge}}" alt="" style="width:24;height:24"data-atf="1">
 						            </div>
 						          </td>
-						          <td>
-						          <div>
-						            {{match.home_team_score}}
-						          </div>
-						          <div>
-						            {{match.away_team_score}}
-						          </div>
-						          </td>
-
-
 
 						          <td>
-
-
-						            <div class="vl">
+						            <div class="v1">
 													{% if match.match_status %}
-													<!--  have to write code when game is live-->
 													<div>
-													{{ match.match_date}} <br>{{match.match_status}} {{match.match_time}}
+													{{match.match_status}}<br>{{match.match_date}}<br>{{match.match_time}}
 													</div>
 													{% else %}
 													<div>
-					 							 	{{match.match_date}}
-					 							 </div>
-					 							 <div>
-					 							 	{{match.match_time}}
-					 							 </div>
+					 							 	{{match.match_date}}<br>{{match.match_time}}
+					 							    </div>
 													{% endif %}
 
 						          </td>
@@ -93,7 +78,7 @@
 							{% endfor %}
 
 							{% else %}
-							 <p>{{match_error.message }} Wybierz inny zakres dat!</p>
+							 <p>{{match_error.message }} Proszę wybrać inny zakres dat</p>
 
 							{% endif %}
 
@@ -103,13 +88,12 @@
 
 
 
-				</div>
-				<div class="col-md-3">
-				</div>
+<p><a href="/..">Powrót do strony głównej</a></p>
 
 
 			</div>
 
 
 		</div>
+
 {% endblock %}

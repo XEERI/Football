@@ -1,0 +1,23 @@
+/* Home Page CSS */
+.table-row{
+cursor:pointer;
+}
+
+.vl {
+  border-left: 1px solid #dee2e6;
+  height: 60px;
+  padding-left:15px;
+}
+.span{
+  position: relative;
+  top: 19px;
+}
+
+
+
+
+
+
+
+
+
