@@ -204,4 +204,18 @@ def match_details(request, match_id):
             'team_home_badge': response[0]['team_home_badge'],
             'team_away_badge': response[0]['team_away_badge']
         }
-        return render(request, 'footballstats/mecz_statystyki.html', context={'match_info': match_info})
+
+        length = len(response[0]['goalscorer'])
+        goalscorer = []
+
+        for i in range(length):
+            scorer = {
+                "time": response[0]['goalscorer'][i]['time'],
+                "home_scorer": response[0]['goalscorer'][i]['home_scorer'],
+                "score": response[0]['goalscorer'][i]['score'],
+                "away_scorer": response[0]['goalscorer'][i]['away_scorer']
+
+            }
+            goalscorer.append(scorer)
+        return render(request, 'footballstats/mecz_statystyki.html', context={'match_info': match_info, 'goalscorer':goalscorer})
+
