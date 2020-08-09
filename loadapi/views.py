@@ -12,12 +12,12 @@ def index(request):
     return render(request, 'loadapi/index.html')
 
 def sendPlayer(request):
-    res = requests.get("https://apiv2.apifootball.com/?action=get_players&player_name=ronaldo cristiano&APIkey=4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac")
+    res = requests.get("https://apiv2.apifootball.com/?action=get_players&player_name=ronaldo cristiano&APIkey=215d2a4f7def255ca30c33fe48d98853aa3c7e21071f36a0b999f7c7da30623c")
     data = res.json()
-    return data
+    return HttpResponse(data)
 
 def sendMatch(request):
-    res = requests.get("https://apiv2.apifootball.com/?action=get_events&from=2019-04-01&to=2019-04-038&APIkey=4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac")
+    res = requests.get("https://apiv2.apifootball.com/?action=get_events&from=2019-04-01&to=2019-04-038&APIkey=215d2a4f7def255ca30c33fe48d98853aa3c7e21071f36a0b999f7c7da30623c")
     data = res.json()
     return data
 

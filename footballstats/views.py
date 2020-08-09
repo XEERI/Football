@@ -1,15 +1,10 @@
-
 from django.shortcuts import render
 import requests
 import datetime
 
-# Create your views here.
-
-
-
 # Wyszukiwanie graczy
 def get_player_data(request):
-    api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
+    api_key = "215d2a4f7def255ca30c33fe48d98853aa3c7e21071f36a0b999f7c7da30623c"
     if request.method == "POST":
         player_id = request.POST.get('player_id')
     else:
@@ -23,13 +18,13 @@ def get_player_data(request):
     querystring = {"action": "get_players", 'player_id': player_id, 'player_name': player_name,
                    "APIkey": api_key}
 
-
     load = ""
 
     response = requests.request(
         "GET", url, data=load, params=querystring)
     response = response.json()
     length = len(response)
+
 
     player_data = []
     player_error = {}
@@ -59,7 +54,7 @@ def get_player_data(request):
     return render(request, 'footballstats/player.html', context={'player_data': player_data, 'player_error': player_error})
 
 def player_details(request, player_id):
-    api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
+    api_key = "215d2a4f7def255ca30c33fe48d98853aa3c7e21071f36a0b999f7c7da30623c"
     url = "http://apiv2.apifootball.com/"
 
     querystring = {"action": "get_players", "player_id": player_id,
@@ -91,7 +86,8 @@ def player_details(request, player_id):
 
 # Wyszukiwanie meczy
 def get_match_data(request):
-    api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
+    api_key = "215d2a4f7def255ca30c33fe48d98853aa3c7e21071f36a0b999f7c7da30623c"
+
     if request.method == "POST":
         league_id = request.POST.get('league_id')
     else:
@@ -105,7 +101,6 @@ def get_match_data(request):
     else:
         to_date = datetime.datetime.now().date()
 
-
     url = "https://apiv2.apifootball.com/"
 
     querystring = {"action": "get_events", 'league_id': league_id,
@@ -113,10 +108,9 @@ def get_match_data(request):
 
     load = ""
 
-    response = requests.request(
-        "GET", url, data=load, params=querystring)
-    response = response.json()
-    length = len(response)
+    r = requests.request("GET", url, data=load, params=querystring)
+    r = r.json()
+    length = len(r)
 
     match_data = []
     match_error = {}
@@ -124,48 +118,43 @@ def get_match_data(request):
     try:
         for i in range(length):
             match = {
-                'match_id': response[i]['match_id'],
-                "match_status": response[i]['match_status'],
-                'match_date': response[i]['match_date'],
-                'match_time':  response[i]['match_time'],
-                'home_team': response[i]['match_hometeam_name'],
-                'home_team_score': response[i]['match_hometeam_score'],
-                'away_team': response[i]['match_awayteam_name'],
-                'away_team_score': response[i]['match_awayteam_score'],
-                'team_home_badge': response[i]['team_home_badge'],
-                'team_away_badge': response[i]['team_away_badge']
+                'match_id': r[i]['match_id'],
+                "match_status": r[i]['match_status'],
+                'match_date': r[i]['match_date'],
+                'match_time':  r[i]['match_time'],
+                'home_team': r[i]['match_hometeam_name'],
+                'home_team_score': r[i]['match_hometeam_score'],
+                'away_team': r[i]['match_awayteam_name'],
+                'away_team_score': r[i]['match_awayteam_score'],
+                'team_home_badge': r[i]['team_home_badge'],
+                'team_away_badge': r[i]['team_away_badge'],
+                'score_fulltime': int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']),
+                'score_over05': int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']) > 0.5,
+                'score_over15': int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']) > 1.5,
+                "score_over25": int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']) > 2.5,
+                "score_below05":int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']) < 0.5,
+                "score_below15":int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']) < 1.5,
+                "score_below25":int(r[i]['match_hometeam_score']) + int(r[i]['match_awayteam_score']) < 2.5,
             }
             match_data.append(match)
     except:
         match_error = {
-            'message': response['message']
+            'message': r['message']
         }
 
-    querystring = {"action": "get_leagues", "APIkey": api_key}
-
-    load = ""
-
-    response = requests.request(
-        "GET", url, data=load,params=querystring)
-    response = response.json()
-    length = len(response)
-
-    competitions = []
-
-    for i in range(length):
-        league_details = {
-            'league_id': response[i]['league_id'],
-            'league_name': response[i]['league_name']
-        }
-        competitions.append(league_details)
-
-    return render(request, 'footballstats/mecz.html', context={'match_data': match_data, 'match_error': match_error, 'competitions': competitions})
-
-
-
+    scorecount = {}
+    for x in match_data:
+        for k, v in x.items():
+            if k in scorecount.keys():
+                scorecount[k] += v
+            elif "score_" in k:
+                scorecount[k] = v
+    # print(scorecount)
+    return render(request, 'footballstats/mecz.html', context={'match_data': match_data, 'match_error': match_error,"data":scorecount})
 
 def match_details(request, match_id):
-        api_key = "4d8dc09514907ea887cae91d0a8544bca127096ef1df1c6c1b80344a993045ac"
+
+        api_key = "215d2a4f7def255ca30c33fe48d98853aa3c7e21071f36a0b999f7c7da30623c"
         url = "http://apiv2.apifootball.com/"
 
         querystring = {"action": "get_events", "match_id": match_id,
@@ -217,5 +206,93 @@ def match_details(request, match_id):
 
             }
             goalscorer.append(scorer)
-        return render(request, 'footballstats/mecz_statystyki.html', context={'match_info': match_info, 'goalscorer':goalscorer})
+
+        events = []
+
+        timeline = ["1'", "2'", "3'", "4'", "5'", "6'", "7'", "8'", "9'", "10'", "11'", "12'", "13'", "14'", "15'",
+                    "16'", "17'", "18'", "19'", "20'", "21'", "22'", "23'", "24'", "25'", "26'", "27'", "28'", "29'",
+                    "30'", "31'", "32'", "33'", "34'", "35'", "36'", "37'", "38'", "39'", "40'", "41'", "42'", "43'",
+                    "44'", "45'", "46'", "47'", "48'", "49'", "50'", "51'", "52'", "53'", "54'", "55'", "56'", "57'",
+                    "58'", "59'", "60'", "61'", "62'", "63'", "64'", "65'", "66'", "67'", "68'", "69'", "70'", "71'",
+                    "72'", "73'", "74'", "75'", "76'", "77'", "78'", "79'", "80'", "81'", "82'", "83'", "84'", "85'",
+                    "86'", "87'", "88'", "89'", "90'", "91'", "92'", "93'", "94'", "95'",
+                    "96'"]
+        for i in range(len(timeline)):
+            if timeline[i] == "90'":
+                event = {
+                    "average_score_halftime": (int(match_info['match_hometeam_halftime_score']) + int(match_info['match_awayteam_halftime_score'])) /2,
+                    "average_score_fulltime": (int(match_info['match_hometeam_score']) + int(match_info['match_awayteam_score'])) / 2,
+                    "score_halftime": int(match_info['match_hometeam_halftime_score']) + int(match_info['match_awayteam_halftime_score']),
+                    "score_fulltime": int(match_info['match_hometeam_score']) + int(match_info['match_awayteam_score']),
+
+                }
+                events.append(event)
+        return render(request, 'footballstats/mecz_statystyki.html', context={'match_info': match_info, 'goalscorer':goalscorer, 'events': events})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # gole = {}
+        # try:
+        #     match_score_count = (match_info['match_hometeam_score'] + ['match_awayteam_score'])
+        #     if len(match_score_count) == 0:
+        #        gole ={
+        #            'two': int(match_score_count[0]) + 1,
+        #            'three': int(match_score_count[0]) + 1 + int(match_score_count[1]),
+        #            'four': int(match_score_count[0]) + 1 + int(match_score_count[1]) + int(match_score_count[2]),
+        #        }
+        # except:
+        #     print("home format not found!")
+        #
+        #
+        #
+        #
+        #
+        # # a = int(request.GET['home_team_score'])
+        # # b = int(request.GET['home_away_score'])
+        # # c = a + b
+
 

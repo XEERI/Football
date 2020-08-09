@@ -48,13 +48,17 @@
 						<tbody>
 							{% if match_data %}
 							{% for match in match_data %}
+
 							<tr style="border:0 solid white;" class="table-row" data-href="/footballstats/matches/{{match.match_id}}">
 						          <td>
 						            <div>
+
 						              <img src=" {{match.team_home_badge}} " alt="logo ligi" style="width:12;height:12" data-atf="1">
 						              <span style="margin-left:15">{{match.home_team | safe }}  {{match.home_team_score}} </span>
 										<span style="margin-left:15">- {{match.away_team_score}} {{match.away_team | safe }}  </span>
 										<img src="{{match.team_away_badge}}" alt="" style="width:24;height:24"data-atf="1">
+
+
 						            </div>
 						          </td>
 
@@ -66,7 +70,8 @@
 													</div>
 													{% else %}
 													<div>
-					 							 	{{match.match_date}}<br>{{match.match_time}}
+					 							 	{{match.match_date}}<br>{{match.match_time}}{{match.away_team_score}}
+														{{match.score_fulltime}}
 					 							    </div>
 													{% endif %}
 
@@ -82,18 +87,26 @@
 
 							{% endif %}
 
-
 						</tbody>
 					</table>
+					{% if match_data %}
+					<h2 class="list-group-item"style="text-align:center;  font-size:40px;">Statystyki</h2>
 
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Ilość wszystkich meczy:{{ match_data | length }} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość meczy powyżej 0.5 gola: :{{data.score_over05}} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość meczy powyżej 1.5 gola: {{data.score_over15}} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość meczy powyżej 2.5 gola: {{data.score_over25}} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość meczy poniżej 0.5 gola: {{data.score_below05}} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość meczy poniżej 1.5 gola: {{data.score_below15}} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość meczy poniżej 2.5 gola: {{data.score_below25}} </li>
+					<li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">	Ilość wszystkich goli w meczach które się wyświetlają: {{data.score_fulltime}}  </li>
 
+					{% endif %}
 
 <p><a href="/..">Powrót do strony głównej</a></p>
 
 
 			</div>
-
-
 		</div>
 
 {% endblock %}

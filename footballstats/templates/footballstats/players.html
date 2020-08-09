@@ -2,20 +2,21 @@
 {% block content %}
 <div>
      <ol>
-           <h3>Imię i Nazwisko:     {{player_info.player_name }}</h3>
+         <h3 class="list-group-item"style="text-align:center;  font-size:25px;">Imię i Nazwisko:     {{player_info.player_name }}</h3>
+
            <ul>
 
-             <li>Id gracza:{{player_info.player_key}}</li>
-             <li>Kraj: {{player_info.player_country }}</li>
-             <li>Numer zawodnika: {{player_info.player_number }} <br></li>
-             <li>Pozycja: {{player_info.player_type }} <br></li>
-             <li>Lat: {{player_info.player_age }}</li>
-             <li>Rozegrane mecze: {{player_info.player_match_played}}</li>
-             <li>Ilość goli: {{ player_info.player_goals}}</li>
-             <li>Zółte kartki: {{player_info.player_yellow_cards}}</li>
-             <li>Czerwone kartki: {{player_info.player_red.cards}}</li>
-             <li>Nazwa teamu: {{player_info.team_name}}</li>
-               <li>Team id: {{player_info.team_key}}</li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Id gracza:{{player_info.player_key}}</li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Kraj: {{player_info.player_country }}</li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Numer zawodnika: {{player_info.player_number }} </li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Pozycja: {{player_info.player_type }} </li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Lat: {{player_info.player_age }}</li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Rozegrane mecze: {{player_info.player_match_played}}</li>
+            <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Ilość goli: {{ player_info.player_goals}}</li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Zółte kartki: {{player_info.player_yellow_cards}}</li>
+            <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Czerwone kartki: {{player_info.player_red.cards}}</li>
+             <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Nazwa teamu: {{player_info.team_name}}</li>
+               <li class="list-group-item list-group-item-action list-group-item-primary" style="text-align: center;">Team id: {{player_info.team_key}}</li>
 
 
 

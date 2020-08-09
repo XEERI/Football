@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'footballstats',
     'loadapi',
+
 ]
 
 MIDDLEWARE = [
